@@ -7,3 +7,25 @@ html {
     padding: 0;
     box-sizing: border-box;
 }
+
+.nav-bar {
+    border: 2px solid red;
+    background-color: rgba(255, 0, 0, 0.459);
+    padding: 15px;
+}
+
+.nav-header {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.nav-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.nav-link {
+    /* border: 1px solid white; */
+    margin: 5px 10px 10px 10px;
+}
