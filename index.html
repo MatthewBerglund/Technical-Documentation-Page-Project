@@ -5,70 +5,156 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&family=Roboto&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <title>Technical Documentation Page</title>
 </head>
 
 <body>
     <nav id="navbar" class="nav-bar">
-        <h1 class="nav-header">Classical Language Toolkit: Latin</h1>
+        <h1 class="nav-header">Scansion of Latin Poetry</h1>
         <div class="nav-links">
-            <a class="nav-link" href="#Section_1">Section 1</a>
-            <a class="nav-link" href="#Section_2">Section 2</a>
-            <a class="nav-link" href="#Section_3">Section 3</a>
-            <a class="nav-link" href="#Section_4">Section 4</a>
-            <a class="nav-link" href="#Section_5">Section 5</a>
+            <a class="nav-link" href="#About_the_use_of_macrons_in_poetry">About the use of macrons in poetry</a>
+            <a class="nav-link" href="#HexameterScanner">HexameterScanner</a>
+            <a class="nav-link" href="#PentameterScanner">PentameterScanner</a>
+            <a class="nav-link" href="#HendecasyllableScanner">HendecasyllableScanner</a>
+            <a class="nav-link" href="#Verse">Verse</a>
+            <a class="nav-link" href="#ScansionConstants">ScansionConstants</a>
+            <a class="nav-link" href="#Syllabifier">Syllabifier</a>
         </div>
     </nav>
     <main id="main-doc">
-        <section class="main-section" id="Section_1">
-            <h2>Section 1</h2>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium aperiam necessitatibus magnam beatae.
-                Ad architecto corporis repellat, fuga sapiente velit. Similique aspernatur neque facere, ratione facilis
-                dicta sunt error numquam.</p>
-            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Minima repellendus suscipit quidem maxime
-                recusandae dicta unde expedita obcaecati. Possimus, voluptatem fugiat labore numquam iste dolore animi
-                quas repellendus molestias. Reprehenderit?</p>
-            <code>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos similique, veritatis voluptas quis illo quod ab distinctio inventore temporibus praesentium beatae eaque consequuntur! Sed tempora nostrum illum similique sit quaerat?</code>
+        <section class="main-section" id="About_the_use_of_macrons_in_poetry">
+            <h2>About the use of macrons in poetry</h2>
+            <p>Most Latin poetry arrives to us without macrons. Some lines of Latin poetry can be scanned and fit a
+                poetic meter without any macrons at all, due to the rules of meter and positional accentuation.</p>
+            <p>Automatically macronizing every word in a line of Latin poetry does not mean that it will automatically
+                scan correctly. Poets often diverge from standard usage: regularly long vowels can appear short; the
+                verb nesciō in poetry scans the final personal ending as a short o; and regularly short vowels can
+                appear as long; e.g. Lucretius regularly writes rēligiō which scans, instead of the usual religiō; and
+                there is a prosody device: diastole - the short final vowel of a word is lengthened to fit the meter;
+                e.g. tibī in Lucretius I.104 and III.899, etc.</p>
+            <p>However, some macrons are necessary for scansion: Lucretius I.12 begins with “aeriae” which will not scan
+                in hexameter unless one substitutes its macronized form “āeriae”.</p>
         </section>
-        <section class="main-section" id="Section_2">
-            <h2>Section 2</h2>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos odit velit tempore distinctio et. Reiciendis
-                dolorum harum hic cupiditate? Veniam in corrupti officia, nisi dolorem odit enim? Aperiam, accusantium
-                accusamus?</p>
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sapiente nulla doloribus, iste odit voluptatum
-                earum, impedit nisi omnis eligendi modi reprehenderit, ducimus eos! Porro fugit molestiae, nisi vero
-                corporis nulla?</p>
-            <code>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit at voluptas eaque sit assumenda optio soluta quam nemo, totam impedit amet iure neque quas magnam, maxime sunt laboriosam nulla delectus.</code>
+        <section class="main-section" id="HexameterScanner">
+            <h2>HexameterScanner</h2>
+            <p>The HexameterScanner class scans lines of Latin hexameter (with or without macrons) and determines if the
+                line is a valid hexameter and what its scansion pattern is.</p>
+            <p>If the line is not properly macronized to scan, the scanner tries to determine whether the line:</p>
+            <ol>
+                <li>Scans merely by position.</li>
+                <li>Syllabifies according to the common rules.</li>
+                <li>Is complete (e.g. some hexameter lines are partial).</li>
+            </ol>
+            <p>The scanner also determines which syllables would have to be made long to make the line scan as a valid
+                hexameter. The scanner records scansion_notes about which transformations had to be made to the line of
+                verse to get it to scan. The HexameterScanner’s scan method returns a Verse class object.</p>
+            <pre><code>In [1]: from cltk.prosody.latin.hexameter_scanner import HexameterScanner
+
+In [2]: scanner = HexameterScanner()
+
+In [3]: scanner.scan("impulerit. Tantaene animis caelestibus irae?")
+Out[3]: Verse(original='impulerit. Tantaene animis caelestibus irae?', scansion='-  U U -    -   -   U U -    - -  U U  -  - ', meter='hexameter', valid=True, syllable_count=15, accented='īmpulerīt. Tāntaene animīs caelēstibus īrae?', scansion_notes=['Valid by positional stresses.'], syllables = ['īm', 'pu', 'le', 'rīt', 'Tān', 'taen', 'a', 'ni', 'mīs', 'cae', 'lēs', 'ti', 'bus', 'i', 'rae'])</code>
+            </pre>
+
         </section>
-        <section class="main-section" id="Section_3">
-            <h2>Section 3</h2>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis, vitae! Nulla molestiae odit ullam
-                impedit quibusdam officia facilis hic facere? Ex esse praesentium ipsa temporibus mollitia, suscipit
-                asperiores incidunt molestiae!</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus, labore. Non soluta rerum deleniti
-                beatae adipisci porro nam obcaecati, ducimus provident, error quisquam itaque doloremque nesciunt
-                dolores commodi quis aperiam!</p>
-            <code>Lorem ipsum dolor sit amet consectetur adipisicing elit. At iusto nesciunt ducimus ratione, a quisquam porro esse distinctio eligendi explicabo enim necessitatibus voluptatibus veritatis tenetur neque reprehenderit cum debitis incidunt?</code>
+        <section class="main-section" id="PentameterScanner">
+            <h2>PentameterScanner</h2>
+            <p>The PentameterScanner class scans lines of Latin pentameter (with or without macrons) and determines if
+                the line is a valid pentameter and what its scansion pattern is.</p>
+            <p>If the line is not properly macronized to scan, the scanner tries to determine whether the line:</p>
+            <ol>
+                <li>Scans merely by position.</li>
+                <li>Syllabifies according to the common rules.</li>
+            </ol>
+            <p>The scanner also determines which syllables would have to be made long to make the line scan as a valid
+                pentameter. The scanner records scansion_notes about which transformations had to be made to the line of
+                verse to get it to scan. The PentameterScanner’s scan method returns a Verse class object.</p>
+            <pre><code>In [1]: from cltk.prosody.latin.pentameter_scanner import PentameterScanner
+
+In [2]: scanner = PentameterScanner()
+                
+In [3]: scanner.scan("ex hoc ingrato gaudia amore tibi.")
+Out[3]: Verse(original='ex hoc ingrato gaudia amore tibi.', scansion='-   -  -   - -   - U  U - U  U U ', meter='pentameter', valid=True, syllable_count=12, accented='ēx hōc īngrātō gaudia amōre tibi.', scansion_notes=['Spondaic pentameter'], syllables = ['ēx', 'hoc', 'īn', 'gra', 'to', 'gau', 'di', 'a', 'mo', 're', 'ti', 'bi'])</code></pre>
         </section>
-        <section class="main-section" id="Section_4">
-            <h2>Section 4</h2>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, error alias ex nulla, in libero accusamus
-                eaque nostrum suscipit voluptate, voluptas molestiae cupiditate? Vitae, quasi. Velit, veritatis officia!
-                Assumenda, similique.</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi itaque velit quos? Velit quae nesciunt,
-                voluptatibus doloribus, laboriosam libero accusamus eius atque veritatis inventore sint! Consectetur ad
-                pariatur officia repellat!</p>
-            <code>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, repellat laudantium odio distinctio iusto praesentium rem quaerat voluptas sit ex alias facere. Tenetur, inventore. Consectetur beatae aut dolore in officia!</code>
+        <section class="main-section" id="HendecasyllableScanner">
+            <h2>HendecasyllableScanner</h2>
+            <p>The HendecasyllableScanner class scans lines of Latin hendecasyllables (with or without macrons) and
+                determines if the line is a valid example of the hendecasyllablic meter and what its scansion pattern
+                is.</p>
+            <p>If the line is not properly macronized to scan, the scanner tries to determine whether the line:</p>
+            <ol>
+                <li>Scans merely by position.</li>
+                <li>Syllabifies according to the common rules.</li>
+            </ol>
+            <p>The scanner also determines which syllables would have to be made long to make the line scan as a valid
+                hendecasyllables. The scanner records scansion_notes about which transformations had to be made to the
+                line of verse to get it to scan. The HendecasyllableScanner’s scan method returns a Verse class object.
+            </p>
+            <pre><code>In [1]: from cltk.prosody.latin.hendecasyllable_scanner import HendecasyllableScanner
+
+In [2]: scanner = HendecasyllableScanner()
+                
+In [3]: scanner.scan("Iam tum, cum ausus es unus Italorum")
+Out[3]: Verse(original='Iam tum, cum ausus es unus Italorum', scansion=' -   -        - U  U  - U  - U - U ', meter='hendecasyllable', valid=True, syllable_count=11, accented='Iām tūm, cum ausus es ūnus Ītalōrum', scansion_notes=['antepenult foot onward normalized.'], syllables = ['Jām', 'tūm', 'c', 'au', 'sus', 'es', 'u', 'nus', 'I', 'ta', 'lo', 'rum'])</code></pre>
         </section>
-        <section class="main-section" id="Section_5">
-            <h2>Section 5</h2>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore magni ducimus eveniet doloribus,
-                corporis, recusandae incidunt neque repudiandae velit placeat nihil libero doloremque provident dolorem
-                odit omnis voluptatem, ratione ipsam.</p>
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Rem ex aut dolorum suscipit? Explicabo natus
-                sunt maxime debitis dignissimos labore ex sit at, asperiores cum deserunt quasi nam esse cupiditate!</p>
-            <code>Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat blanditiis necessitatibus, dolorem ea, ratione cum ad officia pariatur beatae fuga quam magni labore, harum minus omnis quibusdam sequi illo! Sint.</code>
+        <section class="main-section" id="Verse">
+            <h2>Verse</h2>
+            <p>The Verse class object returned by the HexameterScanner, PentameterScanner, and HendecasyllableScanner
+                provides slots for:</p>
+            <ol>
+                <li>original - original line of verse</li>
+                <li>scansion - the scansion pattern</li>
+                <li>meter - the meter of the verse</li>
+                <li>valid - whether or not the hexameter is valid</li>
+                <li>syllable_count - number of syllables according to common syllabification rules</li>
+                <li>accented - if the hexameter is valid, a version of the line with accented vowels (dipthongs are not
+                    accented)</li>
+                <li>scansion_notes - a list recording the characteristics of the transformations made to the original
+                    line</li>
+                <li>syllables - a list of syllables of which the line is divided into at the scansion level; elided
+                    syllables are not provided.</li>
+            </ol>
+            <p>The Scansion notes are defined in a NOTE_MAP dictionary object contained in the ScansionConstants class.
+            </p>
+        </section>
+        <section class="main-section" id="ScansionConstants">
+            <h2>ScansionConstants</h2>
+            <p>The ScansionConstants class is a configuration class for specifying scansion constants. This class also
+                allows users to customizing scansion constants and scanner behavior, for example, a user may alter the
+                symbols used for stressed and unstressed syllables:</p>
+            <pre><code>In [1]: from cltk.prosody.latin.scansion_constants import ScansionConstants
+
+In [2]: constants = ScansionConstants(unstressed="U",stressed= "-", optional_terminal_ending="X")
+                
+In [3]: constants.DACTYL
+Out[3]: '-UU'
+                
+In [4]: smaller_constants = ScansionConstants(unstressed="˘",stressed= "¯", optional_terminal_ending="x")
+                
+In [5]: smaller_constants.DACTYL
+Out[5]: '¯˘˘'</code></pre>
+            <p>Constants containing strings have characters in upper and lower case since they will often be used in
+                regular expressions, and used to preserve/a verse’s original case.</p>
+        </section>
+        <section class="main-section" id="Syllabifier">
+            <h2>Syllabifier</h2>
+            <p>The Syllabifier class is a Latin language syllabifier. It parses a Latin word or a space separated list
+                of words into a list of syllables. Consonantal I is transformed into a J at the start of a word as
+                necessary. Tuned for poetry and verse, this class is tolerant of isolated single character consonants
+                that may appear due to elision.</p>
+            <pre><code>In [1]: from cltk.prosody.latin.syllabifier import Syllabifier
+
+In [1]: syllabifier = Syllabifier()
+                
+In [2]: syllabifier.syllabify("libri")
+Out[2]: ['li', 'bri']
+                
+In [3]: syllabifier.syllabify("contra")
+Out[3]: ['con', 'tra']</code></pre>
         </section>
     </main>
 </body>
