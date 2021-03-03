@@ -14,7 +14,9 @@
 
 <body>
     <nav id="navbar" class="nav-bar">
-        <h1 class="nav-header">Scansion of Latin Poetry</h1>
+        <header>
+            <h1 class="nav-header">Scansion of Latin Poetry</h1>
+        </header>
         <div class="nav-links">
             <a class="nav-link" href="#About_the_use_of_macrons_in_poetry">About the use of macrons in poetry</a>
             <a class="nav-link" href="#HexameterScanner">HexameterScanner</a>
@@ -23,11 +25,14 @@
             <a class="nav-link" href="#Verse">Verse</a>
             <a class="nav-link" href="#ScansionConstants">ScansionConstants</a>
             <a class="nav-link" href="#Syllabifier">Syllabifier</a>
+            <a class="nav-link" href="#Reference">Reference</a>
         </div>
     </nav>
     <main id="main-doc">
         <section class="main-section" id="About_the_use_of_macrons_in_poetry">
-            <h2>About the use of macrons in poetry</h2>
+            <header>
+                <h2>About the use of macrons in poetry</h2>
+            </header>
             <p>Most Latin poetry arrives to us without macrons. Some lines of Latin poetry can be scanned and fit a
                 poetic meter without any macrons at all, due to the rules of meter and positional accentuation.</p>
             <p>Automatically macronizing every word in a line of Latin poetry does not mean that it will automatically
@@ -40,7 +45,9 @@
                 in hexameter unless one substitutes its macronized form “āeriae”.</p>
         </section>
         <section class="main-section" id="HexameterScanner">
-            <h2>HexameterScanner</h2>
+            <header>
+                <h2>HexameterScanner</h2>
+            </header>
             <p>The HexameterScanner class scans lines of Latin hexameter (with or without macrons) and determines if the
                 line is a valid hexameter and what its scansion pattern is.</p>
             <p>If the line is not properly macronized to scan, the scanner tries to determine whether the line:</p>
@@ -62,7 +69,9 @@ Out[3]: Verse(original='impulerit. Tantaene animis caelestibus irae?', scansion=
 
         </section>
         <section class="main-section" id="PentameterScanner">
-            <h2>PentameterScanner</h2>
+            <header>
+                <h2>PentameterScanner</h2>
+            </header>
             <p>The PentameterScanner class scans lines of Latin pentameter (with or without macrons) and determines if
                 the line is a valid pentameter and what its scansion pattern is.</p>
             <p>If the line is not properly macronized to scan, the scanner tries to determine whether the line:</p>
@@ -81,7 +90,9 @@ In [3]: scanner.scan("ex hoc ingrato gaudia amore tibi.")
 Out[3]: Verse(original='ex hoc ingrato gaudia amore tibi.', scansion='-   -  -   - -   - U  U - U  U U ', meter='pentameter', valid=True, syllable_count=12, accented='ēx hōc īngrātō gaudia amōre tibi.', scansion_notes=['Spondaic pentameter'], syllables = ['ēx', 'hoc', 'īn', 'gra', 'to', 'gau', 'di', 'a', 'mo', 're', 'ti', 'bi'])</code></pre>
         </section>
         <section class="main-section" id="HendecasyllableScanner">
-            <h2>HendecasyllableScanner</h2>
+            <header>
+                <h2>HendecasyllableScanner</h2>
+            </header>
             <p>The HendecasyllableScanner class scans lines of Latin hendecasyllables (with or without macrons) and
                 determines if the line is a valid example of the hendecasyllablic meter and what its scansion pattern
                 is.</p>
@@ -102,7 +113,9 @@ In [3]: scanner.scan("Iam tum, cum ausus es unus Italorum")
 Out[3]: Verse(original='Iam tum, cum ausus es unus Italorum', scansion=' -   -        - U  U  - U  - U - U ', meter='hendecasyllable', valid=True, syllable_count=11, accented='Iām tūm, cum ausus es ūnus Ītalōrum', scansion_notes=['antepenult foot onward normalized.'], syllables = ['Jām', 'tūm', 'c', 'au', 'sus', 'es', 'u', 'nus', 'I', 'ta', 'lo', 'rum'])</code></pre>
         </section>
         <section class="main-section" id="Verse">
-            <h2>Verse</h2>
+            <header>
+                <h2>Verse</h2>
+            </header>
             <p>The Verse class object returned by the HexameterScanner, PentameterScanner, and HendecasyllableScanner
                 provides slots for:</p>
             <ol>
@@ -122,7 +135,9 @@ Out[3]: Verse(original='Iam tum, cum ausus es unus Italorum', scansion=' -   -  
             </p>
         </section>
         <section class="main-section" id="ScansionConstants">
-            <h2>ScansionConstants</h2>
+            <header>
+                <h2>ScansionConstants</h2>
+            </header>
             <p>The ScansionConstants class is a configuration class for specifying scansion constants. This class also
                 allows users to customizing scansion constants and scanner behavior, for example, a user may alter the
                 symbols used for stressed and unstressed syllables:</p>
@@ -141,7 +156,9 @@ Out[5]: '¯˘˘'</code></pre>
                 regular expressions, and used to preserve/a verse’s original case.</p>
         </section>
         <section class="main-section" id="Syllabifier">
-            <h2>Syllabifier</h2>
+            <header>
+                <h2>Syllabifier</h2>
+            </header>
             <p>The Syllabifier class is a Latin language syllabifier. It parses a Latin word or a space separated list
                 of words into a list of syllables. Consonantal I is transformed into a J at the start of a word as
                 necessary. Tuned for poetry and verse, this class is tolerant of isolated single character consonants
@@ -155,6 +172,14 @@ Out[2]: ['li', 'bri']
                 
 In [3]: syllabifier.syllabify("contra")
 Out[3]: ['con', 'tra']</code></pre>
+        </section>
+        <section class="main-section" id="Reference">
+            <header>
+                <h2>Reference</h2>
+            </header>
+            <p>All content taken from, and all styles inspired by, <a
+                    href="https://docs.cltk.org/en/latest/index.html">The Classical Language Toolkit</a> for purposes of
+                practicing HTML/CSS. </p>
         </section>
     </main>
 </body>
